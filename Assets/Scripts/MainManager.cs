@@ -18,7 +18,24 @@ public class MainManager : MonoBehaviour
     
     private bool m_GameOver = false;
 
-    
+    public static MainManager Instance; // The single instance of MainManager
+    public string s_PLayerName;
+
+    private void Awake()
+    {
+        //I have used the singleton pattern to save the name to the mainManager Instance.
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else // if there is an instance it will destroy the instance
+        {
+            Destroy(gameObject);
+        }
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -73,4 +90,6 @@ public class MainManager : MonoBehaviour
         m_GameOver = true;
         GameOverText.SetActive(true);
     }
+
+
 }
