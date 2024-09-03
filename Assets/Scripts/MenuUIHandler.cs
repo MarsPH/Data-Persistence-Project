@@ -8,10 +8,24 @@ using UnityEngine.SceneManagement;
 public class MenuUIHandler : MonoBehaviour
 {
     public TMP_InputField TMP_InputField;
+    public static MenuUIHandler Instance;
 
-    public void SaveName()
+    private void Awake()
     {
-        MainManager.Instance.name = TMP_InputField.text;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void StartGame()
+    {
+        SceneManager.LoadSceneAsync(1);
     }
 
 }

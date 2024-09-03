@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -19,7 +20,7 @@ public class MainManager : MonoBehaviour
     private bool m_GameOver = false;
 
     public static MainManager Instance; // The single instance of MainManager
-    public string s_PLayerName;
+    public string s_PLayerName; // the universal name
 
     private void Awake()
     {
@@ -28,17 +29,20 @@ public class MainManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            Debug.Log("Instance Created");
         }
         else // if there is an instance it will destroy the instance
         {
             Destroy(gameObject);
+            Debug.Log("Instance Destroyed");
         }
     }
-
 
     // Start is called before the first frame update
     void Start()
     {
+        s_PLayerName = MenuUIHandler.Instance.TMP_InputField.text;
+        ScoreText.text = $"{s_PLayerName}'s Score : {m_Points}";
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
@@ -82,7 +86,7 @@ public class MainManager : MonoBehaviour
     void AddPoint(int point)
     {
         m_Points += point;
-        ScoreText.text = $"Score : {m_Points}";
+        ScoreText.text = $"{s_PLayerName}'s Score : {m_Points}";
     }
 
     public void GameOver()
@@ -90,6 +94,4 @@ public class MainManager : MonoBehaviour
         m_GameOver = true;
         GameOverText.SetActive(true);
     }
-
-
 }
