@@ -9,6 +9,9 @@ public class MenuUIHandler : MonoBehaviour
 {
     public TMP_InputField TMP_InputField;
     public static MenuUIHandler Instance;
+    public TextMeshProUGUI bestScore;
+    public bool b_HasLaunchedOnce = false;
+    public string playerName;
 
     private void Awake()
     {
@@ -25,7 +28,12 @@ public class MenuUIHandler : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadSceneAsync(1);
+        SceneManager.LoadScene(1);
+    }
+
+    public void SaveName()
+    {
+        playerName = TMP_InputField.text;
     }
 
 }
